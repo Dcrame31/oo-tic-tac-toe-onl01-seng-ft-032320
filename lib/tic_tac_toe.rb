@@ -88,56 +88,28 @@ class TicTacToe
   end
   
   def draw?
-    if full? && !won?
-      true
-    elsif won?
-      false
-    elsif !full? && !won?
-      false
-    end
+    won? ? false : full? ? true : false
   end
-  
   def over?
-    true if won? || full?
+    won? || draw? || full?
   end
-  
   def winner
-     board_index_X = @board.each_index.select {|index| @board[index] == "X"}
-     board_index_O = @board.each_index.select {|index| @board[index] == "O"}
-
-    winner_X = WIN_COMBINATIONS.map do |index| 
-      index.all? {|num| board_index_X.include?(num)}
-    end
-    
-    winner_O = WIN_COMBINATIONS.map do |index| 
-      index.all? {|num| board_index_O.include?(num)}
-    end
-      x = winner_X.any? {|x| x == true}
-      o =winner_O.any? {|o| o == true} 
-      if x && o == true
-        false
-    elsif
-        o == true
-      "O"
-    elsif 
-        x == true 
-      "X"
+    win = won?
+    if(!win)
+      nil
     else
+      @board[win[0]]
     end
   end
-  
   def play
-    until over? == true
-    turn
-    draw?
-    won?
+    until over?
+      turn
     end
-      if won? != false
-        puts "Congratulations #{winner}!"
-      elsif
-        draw? == true
-        puts "Cat's Game!"
+    if won?
+      puts "Congratulations #{winner}!"
+    elsif draw?
+      puts "Cat's Game!"
     end
+
   end
-  
 end
