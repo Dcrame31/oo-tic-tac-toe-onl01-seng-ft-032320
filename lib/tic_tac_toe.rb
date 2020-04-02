@@ -63,24 +63,10 @@ class TicTacToe
   end
   
   def won?
-   board_index_X = @board.each_index.select {|index| @board[index] == "X"}
-   board_index_O = @board.each_index.select {|index| @board[index] == "O"}
-
-    winning_combinations_x = WIN_COMBINATIONS.map do |index| 
-      index.select {|num| board_index_X.include?(num)}
-    end
-
-    winning_combinations_o = WIN_COMBINATIONS.map do |index|
-      index.select {|num| board_index_O.include?(num)}
-    end
-
-    winning_arrays_x = winning_combinations_x.select{|array|array.length > 2}
-    winning_arrays_o = winning_combinations_o.select{|array|array.length > 2}
-    winning_arrays = winning_arrays_o + winning_arrays_x
-    if winning_arrays == []
-      false
-    else winning_arrays.flatten
-    end
+    odp = WIN_COMBINATIONS.detect do |comb|
+      @board[comb[0]]=="X" && @board[comb[1]]=="X" && @board[comb[2]]=="X" || @board[comb[0]]=="O" && @board[comb[1]]=="O" && @board[comb[2]]=="O"
+        end
+  odp ? odp : false
   end
   
   def full?
